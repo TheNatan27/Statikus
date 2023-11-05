@@ -1,7 +1,7 @@
 // eslint-disable-next-line node/no-unpublished-import
 import { expect } from "@playwright/test";
-import { statikusTest } from "./statikusTest";
-import {startServer, stopServer} from './server'
+import { statikusTest } from "../Config/statikusTest";
+import {startServer, stopServer} from '../Config/server'
 
 statikusTest.describe('Example test', () => {
   statikusTest('should allow me to add todo items', async ({page}) => {
