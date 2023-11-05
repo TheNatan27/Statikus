@@ -1,7 +1,7 @@
 import execa from "execa";
 
 
-export async function installServer(installPath: string) {
+export async function installServer(buildPath: string, installPath: string) {
     console.log('Reset started...')
     try {
         await execa('rm', ['-R', installPath])
@@ -10,7 +10,7 @@ export async function installServer(installPath: string) {
         console.error(error)
     }
     try {
-        await execa('dotnet', ['publish', '-o', installPath, './EK7TKN_HFT_2021221.sln'])        
+        await execa('dotnet', ['publish', '-o', buildPath, './EK7TKN_HFT_2021221.sln'])        
         console.log('New server installed!')
     } catch (error) {   
         console.error(error)
