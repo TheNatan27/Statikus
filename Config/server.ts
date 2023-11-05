@@ -1,11 +1,16 @@
 import execa from "execa";
-import path from "path";
+
 
 export async function installServer(installPath: string) {
     console.log('Reset started...')
-    await execa('rm', ['-R', installPath])
-    await execa('dotnet', ['publish', '-o', installPath, './EK7TKN_HFT_2021221.sln'])        
-    console.log('New server installed!')
+    try {
+        await execa('rm', ['-R', installPath])
+        await execa('dotnet', ['publish', '-o', installPath, './EK7TKN_HFT_2021221.sln'])        
+        console.log('New server installed!')
+    } catch (error) {
+        console.error(error)
+    }
+
 }
 
 export async function startServer(dllPath: string) {
