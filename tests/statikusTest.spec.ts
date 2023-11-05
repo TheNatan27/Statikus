@@ -12,7 +12,7 @@ statikusTest.describe('Example test', () => {
     const ipAddress = process.env.IP_ADDRESS || '192.168.100.8';
     //await page.waitForTimeout(2_000);
 
-    await page.goto('http://localhost:5000/user/read/2');
+    await page.goto('http://localhost:5000/user/read/2', {timeout: 20_000});
 
     await expect(page).toHaveURL('http://localhost:5000/user/read/2');
 
