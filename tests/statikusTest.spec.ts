@@ -5,9 +5,9 @@ import path from "path";
 
 test.describe('Example test', () => {
   test('should allow me to add todo items', async ({page}) => {
-    const buildPath = path.join(__dirname, 'EK7TKN_HFT_2021221')
-    const installedPath = path.join(__dirname, 'INSTALLED')
-    const dllPath = path.join(installedPath, 'EK7TKN_HFT_2021221.Endpoint.dll')
+    const buildPath = path.join(__dirname, '../EK7TKN_HFT_2021221')
+    const installedPath = path.join(__dirname, '../INSTALLED')
+    const dllPath = path.join(installedPath, '../EK7TKN_HFT_2021221.Endpoint.dll')
     console.log(buildPath)
     console.log(installedPath)
     console.log(dllPath)
