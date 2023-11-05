@@ -5,7 +5,7 @@ type resetAUT = {
     resetAUT: void,
 }
 
-export const statikusTest = base.extend<resetAUT>({
+export const statikusTest = base.extend<{resetAUT: resetAUT}>({
     resetAUT: [
         async (use) => {
             await execa('rm', ['-R', './BUILD'])
