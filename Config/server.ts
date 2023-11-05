@@ -5,9 +5,14 @@ export async function installServer(installPath: string) {
     console.log('Reset started...')
     try {
         await execa('rm', ['-R', installPath])
+        console.log('Old server removed.')
+    } catch (error) {
+        console.error(error)
+    }
+    try {
         await execa('dotnet', ['publish', '-o', installPath, './EK7TKN_HFT_2021221.sln'])        
         console.log('New server installed!')
-    } catch (error) {
+    } catch (error) {   
         console.error(error)
     }
 
