@@ -12,7 +12,7 @@ test.describe('Example test', () => {
     console.log(installedPath)
     console.log(dllPath)
     
-    await installServer(installedPath)
+    await installServer(buildPath, installedPath)
     
     const pid = await startServer(dllPath)
 
