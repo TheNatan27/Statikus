@@ -28,11 +28,12 @@ import { Client } from 'ts-postgres';
     const runId = process.env.RUN_ID;
     const hostname = process.env.HOSTNAME;
     
-    console.log({
+    console.log(JSON.parse(JSON.stringify({
         'hostname': hostname,
         'run-id': runId,
-        'performance': executionTime
-      })
+        'performance': executionTime,
+        'database-ip': databaseHost
+      })))
 
     const client = new Client({
         user: 'postgres',
@@ -43,7 +44,7 @@ import { Client } from 'ts-postgres';
       await client.connect();
 
       try {
-        const response = client.query(`INSER INTO static_table VALUES (
+        const response = client.query(`INSERT INTO static_table VALUES (
             ${runId}, ${executionTime}, ${hostname}
         );`)
         for await (const row of response) {
