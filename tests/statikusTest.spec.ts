@@ -17,7 +17,7 @@ test.describe('Example test', () => {
     await installServer(buildPath, installedPath)
     
     const pid = await startServer(dllPath)
-
+    console.log(`### PID: ${pid} ###`)
     console.log('This is test 01');
     const ipAddress = process.env.IP_ADDRESS || '192.168.100.8';
 

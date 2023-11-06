@@ -31,7 +31,7 @@ export async function installServer(buildPath: string, installPath: string) {
 }
 
 export async function startServer(dllPath: string) {
-    const dotnetServer = execa('dotnet', [dllPath, '--urls=http://0.0.0.0:5000'], {detached: true});    
+    const dotnetServer = await execa('dotnet', [dllPath, '--urls=http://0.0.0.0:5000'], {detached: true});    
     dotnetServer.stdout?.pipe(process.stdout)
     return dotnetServer.pid!
 }
