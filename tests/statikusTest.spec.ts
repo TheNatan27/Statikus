@@ -23,7 +23,7 @@ test.describe('Example test', () => {
     console.log('This is test 01');
     const ipAddress = process.env.IP_ADDRESS || '192.168.100.8';
 
-    await page.waitForTimout(1_500)
+    await page.waitForTimeout(1_500)
 
     await page.goto('http://localhost:5000/user/read/2', {timeout: 60_000});
 
