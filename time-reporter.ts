@@ -10,17 +10,17 @@ import { Client } from 'ts-postgres';
         this.startTime = Date.now()
         console.log('Starting time measurement.')
     }
-    onEnd(result: FullResult): void | Promise<void | { status?: 'passed' | 'failed' | 'timedout' | 'interrupted' | undefined; } | undefined> {
+    async onEnd(result: FullResult): Promise<void | { status?: 'passed' | 'failed' | 'timedout' | 'interrupted' | undefined; } | undefined> {
         const endTime = Date.now();
         const executionTime = (endTime-this.startTime)/1000; 
         console.log(`Completion time: ${executionTime}`)
-        saveToDb(executionTime)
+        await saveToDb(executionTime)
     }
   }
 
   export default TimeReporter;
 
-  function saveToDb(executionTime: number) {
+  async function saveToDb(executionTime: number) {
     const databaseHost = process.env.DATABASE_HOST;
     const databasePassword = process.env.POSTGRES_PASSWORD;
     const runId = process.env.RUN_ID;
@@ -31,7 +31,7 @@ import { Client } from 'ts-postgres';
         database: 'postgres',
         host: databaseHost,
       });
-      client.connect();
+      await client.connect();
       console.log({
         'hostname': hostname,
         'run-id': runId,
@@ -41,7 +41,9 @@ import { Client } from 'ts-postgres';
         const response = client.query(`INSER INTO static_table VALUES (
             ${runId}, ${executionTime}, ${hostname}
         );`)
-        console.log(response)
+        for await (const row of response) {
+            console.info(row);
+          }
       } catch (error) {
         console.error(error);
       }
