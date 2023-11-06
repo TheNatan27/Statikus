@@ -20,7 +20,7 @@ import { Client } from 'ts-postgres';
 
   export default TimeReporter;
 
-  async function saveToDb(executionTime: number) {
+  function saveToDb(executionTime: number) {
     const databaseHost = process.env.DATABASE_HOST;
     const databasePassword = process.env.POSTGRES_PASSWORD;
     const runId = process.env.RUN_ID;
@@ -31,7 +31,7 @@ import { Client } from 'ts-postgres';
         database: 'postgres',
         host: databaseHost,
       });
-      await client.connect();
+      client.connect();
       console.log({
         'hostname': hostname,
         'run-id': runId,
@@ -41,9 +41,7 @@ import { Client } from 'ts-postgres';
         const response = client.query(`INSER INTO static_table VALUES (
             ${runId}, ${executionTime}, ${hostname}
         );`)
-        for await (const row of response) {
-            console.info(row);
-          }
+        console.log(response)
       } catch (error) {
         console.error(error);
       }
