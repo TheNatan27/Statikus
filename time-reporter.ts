@@ -21,10 +21,19 @@ import { Client } from 'ts-postgres';
   export default TimeReporter;
 
   async function saveToDb(executionTime: number) {
+    dotenv.config()
+
     const databaseHost = process.env.DATABASE_HOST;
     const databasePassword = process.env.POSTGRES_PASSWORD;
     const runId = process.env.RUN_ID;
     const hostname = process.env.HOSTNAME;
+    
+    console.log({
+        'hostname': hostname,
+        'run-id': runId,
+        'performance': executionTime
+      })
+
     const client = new Client({
         user: 'postgres',
         password: databasePassword,
@@ -32,11 +41,7 @@ import { Client } from 'ts-postgres';
         host: databaseHost,
       });
       await client.connect();
-      console.log({
-        'hostname': hostname,
-        'run-id': runId,
-        'performance': executionTime
-      })
+
       try {
         const response = client.query(`INSER INTO static_table VALUES (
             ${runId}, ${executionTime}, ${hostname}
