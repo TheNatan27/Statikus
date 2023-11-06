@@ -46,7 +46,7 @@ import { Client } from 'ts-postgres';
       try {
         const response = client.query(`INSERT INTO "static_table"  
         (
-            "run_id", "performace", "hostname"
+            "run_id", "performance", "hostname"
         )
         VALUES (
             ${parseInt(runId!)}, ${executionTime}, '${hostname}'
