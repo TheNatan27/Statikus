@@ -1,6 +1,6 @@
 // eslint-disable-next-line node/no-unpublished-import
 import { expect, test } from "@playwright/test";
-import {installServer, startServer, stopServer} from '../Config/server'
+import {installServer, startServer, stopServer, cleanRemaningFolder, downloadSource, cleanSource, removeSource} from '../Config/server'
 import path from "path";
 
 test.describe('Example test', () => {
@@ -12,6 +12,8 @@ test.describe('Example test', () => {
     console.log(installedPath)
     console.log(dllPath)
     
+    await cleanRemaningFolder(installedPath)
+    await downloadSource()
     await installServer(buildPath, installedPath)
     
     const pid = await startServer(dllPath)
@@ -24,5 +26,8 @@ test.describe('Example test', () => {
     await expect(page).toHaveURL('http://localhost:5000/user/read/2');
 
     await stopServer(pid)
+    await cleanSource(buildPath)
+    await removeSource(buildPath)
+    await cleanRemaningFolder(installedPath)
   });
 });
