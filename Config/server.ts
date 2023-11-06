@@ -4,7 +4,7 @@ import execa from "execa";
 export async function cleanRemaningFolder(installedPath:string) {
     console.log('Reset started...')
     try {
-        await execa('rm', ['-R', installPath])
+        await execa('rm', ['-R', installedPath])
         console.log('Old server removed.')
     } catch (error) {
         console.error('No such directory!')
@@ -12,7 +12,7 @@ export async function cleanRemaningFolder(installedPath:string) {
 }
 
 export async function downloadSource() {
-    console.log('Downloadin source...')
+    console.log('Downloading source...')
     try {
         await execa('git', ['clone', 'https://github.com/TheNatan27/EK7TKN_HFT_2021221.git', '-b', 'UpdateDotnet'])
         console.log('Source downloaded.')
@@ -21,7 +21,7 @@ export async function downloadSource() {
     }
 }
 
-export async function installServer(buildPath: string, installPath: string, page: Page) {
+export async function installServer(buildPath: string, installPath: string) {
     try {
         await execa('dotnet', ['build', '-o', installPath, buildPath])        
         console.log('New server installed!')
