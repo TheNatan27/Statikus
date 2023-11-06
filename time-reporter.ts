@@ -18,6 +18,8 @@ import { Client } from 'ts-postgres';
     }
   }
 
+  export default TimeReporter;
+
   async function saveToDb(executionTime: number) {
     const databaseHost = process.env.DATABASE_HOST;
     const databasePassword = process.env.POSTGRES_PASSWORD;
@@ -46,3 +48,5 @@ import { Client } from 'ts-postgres';
         console.error(error);
       }
   }
+
+  
